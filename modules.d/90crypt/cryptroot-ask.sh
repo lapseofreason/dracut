@@ -139,7 +139,7 @@ ask_passphrase=1
 
 if [ -n "$luksfile" -a "$luksfile" != "none" -a -e "$luksfile" ]; then
     if readkey "$luksfile" / "$device" \
-        | cryptsetup -d - "$cryptsetupopts" luksOpen "$device" "$luksname"; then
+        | cryptsetup -d - $cryptsetupopts luksOpen "$device" "$luksname"; then
         ask_passphrase=0
     fi
 elif [ "$is_keysource" -ne 0 ]; then
@@ -165,7 +165,7 @@ else
 
         info "Using '$keypath' on '$keydev'"
         readkey "$keypath" "$keydev" "$device" \
-            | cryptsetup -d - "$cryptsetupopts" luksOpen "$device" "$luksname" \
+            | cryptsetup -d - $cryptsetupopts luksOpen "$device" "$luksname" \
             && ask_passphrase=0
         unset keypath keydev
         break
